@@ -27,12 +27,10 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
 
     ArrayAdapter<User> mAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
 
         mAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1);
@@ -45,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 List<User> users = result.getResult();
                 mAdapter.addAll(users);
             }
+
             @Override
             public void onFail(NetworkRequest<NetworkResult<List<User>>> request, int errorCode, String errorMessage, Throwable e) {
+
             }
         });
     }
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_logout) {
+        if (item.getItemId() == R.id.menu_logout) {
             LogOutRequest request = new LogOutRequest(this);
             NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<String>>() {
                 @Override

@@ -1,15 +1,21 @@
 package com.tacademy.miniproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.tacademy.miniproject.data.NetworkResult;
 import com.tacademy.miniproject.data.User;
+import com.tacademy.miniproject.login.SimpleLoginActivity;
 import com.tacademy.miniproject.manager.NetworkManager;
 import com.tacademy.miniproject.manager.NetworkRequest;
+import com.tacademy.miniproject.manager.PropertyManager;
 import com.tacademy.miniproject.request.FriendListRequest;
+import com.tacademy.miniproject.request.LogOutRequest;
 
 import java.util.List;
 
@@ -43,6 +49,36 @@ public class MainActivity extends AppCompatActivity {
             public void onFail(NetworkRequest<NetworkResult<List<User>>> request, int errorCode, String errorMessage, Throwable e) {
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_logout) {
+            LogOutRequest request = new LogOutRequest(this);
+            NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<String>>() {
+                @Override
+                public void onSuccess(NetworkRequest<NetworkResult<String>> request, NetworkResult<String> result) {
+                    PropertyManager.getInstance().setEmail("");
+                    PropertyManager.getInstance().setPassword("");
+                    Intent intent = new Intent(MainActivity.this, SimpleLoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFail(NetworkRequest<NetworkResult<String>> request, int errorCode, String errorMessage, Throwable e) {
+
+                }
+            });
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 /// 로그인 // 회원가입창 만들기

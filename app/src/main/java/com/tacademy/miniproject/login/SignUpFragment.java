@@ -59,7 +59,6 @@ public class SignUpFragment extends Fragment {
                 Toast.makeText(getContext(), "user id :" + user.getId(), Toast.LENGTH_SHORT).show();
                 ((SimpleLoginActivity)getActivity()).moveMainActivity();
             }
-
             @Override
             public void onFail(NetworkRequest<NetworkResult<User>> request, int errorCode, String errorMessage, Throwable e) {
                 Toast.makeText(getContext(), "message : " + errorMessage, Toast.LENGTH_SHORT).show();

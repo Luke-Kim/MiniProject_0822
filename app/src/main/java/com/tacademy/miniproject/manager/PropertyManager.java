@@ -57,6 +57,4 @@ public class PropertyManager {
     public String getRegistrationId() {
         return mPrefs.getString(KEY_REGISTRATION_ID, "");
     }
-
-
 }

@@ -16,7 +16,6 @@ import okhttp3.Request;
  */
 public class ProfileRequest extends AbstractRequest<NetworkResult<User>>{
     Request request;
-
     public ProfileRequest(Context context) {
         HttpUrl url = getBaseUrlBuilder()
                 .addPathSegment("profile")
@@ -26,7 +25,6 @@ public class ProfileRequest extends AbstractRequest<NetworkResult<User>>{
                 .tag(context)
                 .build();
     }
-
     @Override
     protected Type getType() {
         return new TypeToken<NetworkResult<User>>(){}.getType();

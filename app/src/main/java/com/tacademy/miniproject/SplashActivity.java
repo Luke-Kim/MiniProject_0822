@@ -32,8 +32,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFail(NetworkRequest<NetworkResult<User>> request, int errorCode, String errorMessage, Throwable e) {
-                if(errorCode == -1) {
-                    if(errorMessage.equals("not login")) {
+                if (errorCode == -1) {
+                    if (errorMessage.equals("not login")) {
                         loginSharedPreference();
                         return;
                     }
@@ -44,9 +44,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void loginSharedPreference() {
-        if(isAutoLogin()){
+        if (isAutoLogin()) {
             processAutoLogin();
-        }else {
+        } else {
             moveLoginActivity();
         }
     }
@@ -54,10 +54,9 @@ public class SplashActivity extends AppCompatActivity {
         String email = PropertyManager.getInstance().getEmail();
         return !TextUtils.isEmpty(email);
     }
-
     private void processAutoLogin() {
         String email = PropertyManager.getInstance().getEmail();
-        if(!TextUtils.isEmpty(email)) {
+        if (!TextUtils.isEmpty(email)) {
             String password = PropertyManager.getInstance().getPassword();
             String regid = PropertyManager.getInstance().getRegistrationId();
             LoginRequest request = new LoginRequest(this, email, password, regid);
@@ -89,5 +88,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1000);
     }
+
     Handler mHandler = new Handler(Looper.getMainLooper());
 }
